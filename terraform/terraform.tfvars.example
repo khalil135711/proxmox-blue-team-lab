@@ -1,0 +1,12 @@
+pm_endpoint  = "https://pve.lab.local:8006/"
+pm_api_token = "terraform@pve!lab=00000000-0000-0000-0000-000000000000"
+node         = "pve"
+bridge       = "vmbr1"
+
+vms = {
+  "wazuh"  = { vmid = 210, template_id = 9000, cores = 4, memory = 8192, vlan = 10, tags = ["lab", "siem"] }
+  "dc01"   = { vmid = 220, template_id = 9100, cores = 2, memory = 4096, vlan = 20, tags = ["lab", "windows"] }
+  "web01"  = { vmid = 221, template_id = 9000, cores = 2, memory = 2048, vlan = 20, tags = ["lab", "linux"] }
+  "win-c1" = { vmid = 230, template_id = 9101, cores = 2, memory = 4096, vlan = 30, tags = ["lab", "windows"] }
+  "kali"   = { vmid = 266, template_id = 9200, cores = 2, memory = 4096, vlan = 66, tags = ["lab", "attacker"] }
+}

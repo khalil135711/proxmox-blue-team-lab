@@ -1,0 +1,24 @@
+title: Possible Kerberoasting - RC4 TGS Request
+id: 7d0f6f5e-2c1b-4f55-9a10-5a7c1e000001
+status: experimental
+description: Erkennt Kerberos-Service-Ticket-Anfragen mit RC4-Verschluesselung (0x17).
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+author: Khalil Kadar
+date: 2026/11/19
+tags:
+  - attack.credential_access
+  - attack.t1558.003
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+  filter_machine_accounts:
+    ServiceName|endswith: '$'
+  condition: selection and not filter_machine_accounts
+falsepositives:
+  - Aeltere Anwendungen/Dienste, die nur RC4 unterstuetzen
+level: high

@@ -1,0 +1,13 @@
+---
+# All-in-one Installation ueber den offiziellen Wazuh-Installationsassistenten.
+# Version in group_vars/all.yml anpassen und die URL in der Wazuh-Doku pruefen.
+- name: Installationsskript herunterladen
+  ansible.builtin.get_url:
+    url: "https://packages.wazuh.com/{{ wazuh_version }}/wazuh-install.sh"
+    dest: /root/wazuh-install.sh
+    mode: "0700"
+
+- name: Wazuh all-in-one installieren (dauert einige Minuten)
+  ansible.builtin.command:
+    cmd: bash /root/wazuh-install.sh -a
+    creates: /var/ossec/bin/wazuh-control

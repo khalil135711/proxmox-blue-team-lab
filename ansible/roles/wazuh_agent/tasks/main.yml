@@ -1,0 +1,24 @@
+---
+- name: Wazuh GPG-Key hinzufuegen
+  ansible.builtin.apt_key:
+    url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+    state: present
+
+- name: Wazuh Repository hinzufuegen
+  ansible.builtin.apt_repository:
+    repo: "deb https://packages.wazuh.com/4.x/apt/ stable main"
+    state: present
+
+- name: Wazuh Agent installieren
+  ansible.builtin.apt:
+    name: wazuh-agent
+    state: present
+    update_cache: true
+  environment:
+    WAZUH_MANAGER: "{{ wazuh_manager_ip }}"
+
+- name: Agent aktivieren und starten
+  ansible.builtin.systemd:
+    name: wazuh-agent
+    enabled: true
+    state: started

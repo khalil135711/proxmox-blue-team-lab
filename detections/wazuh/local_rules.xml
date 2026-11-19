@@ -1,0 +1,25 @@
+<!-- Eigene Detection-Regeln (IDs 100000+ sind fuer lokale Regeln reserviert) -->
+<group name="local,lab,">
+
+  <!-- T1558.003 Kerberoasting: TGS-Anfrage mit RC4-Verschluesselung -->
+  <rule id="100100" level="10">
+    <if_group>windows</if_group>
+    <field name="win.system.eventID">^4769$</field>
+    <field name="win.eventdata.ticketEncryptionType">^0x17$</field>
+    <description>Moegliches Kerberoasting: TGS-Ticket mit RC4 (0x17) angefordert</description>
+    <mitre>
+      <id>T1558.003</id>
+    </mitre>
+  </rule>
+
+  <!-- T1110.001 SSH Brute Force: viele Fehlversuche von derselben Quelle -->
+  <rule id="100110" level="10" frequency="8" timeframe="120">
+    <if_matched_sid>5760</if_matched_sid>
+    <same_srcip />
+    <description>SSH Brute Force: 8+ fehlgeschlagene Logins in 2 Minuten</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+  </rule>
+
+</group>

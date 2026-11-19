@@ -1,0 +1,13 @@
+---
+- name: Wazuh Server aufsetzen
+  hosts: wazuh_server
+  become: true
+  roles:
+    - wazuh_server
+    - detections
+
+- name: Wazuh Agents auf Linux-Systemen installieren
+  hosts: linux_agents
+  become: true
+  roles:
+    - wazuh_agent

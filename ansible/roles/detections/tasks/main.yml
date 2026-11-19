@@ -1,0 +1,9 @@
+---
+- name: Eigene Wazuh-Regeln deployen
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../detections/wazuh/local_rules.xml"
+    dest: /var/ossec/etc/rules/local_rules.xml
+    owner: wazuh
+    group: wazuh
+    mode: "0660"
+  notify: Restart wazuh-manager
